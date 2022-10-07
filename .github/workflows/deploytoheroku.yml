@@ -55,7 +55,7 @@ jobs:
            path: backend/target
        - name: Login to Heroku
          run: heroku container:login
-       - name: Push App
+       - name: Push Docker Image
          run: heroku container:push web -a insane-movie-db
-       - name: Release App
+       - name: Release Docker Container
          run: heroku container:release web -a insane-movie-db
