@@ -9,7 +9,7 @@ export default function MovieCard(props:MovieCardProps){
 
     return(
         <div className={"movie-card"}>
-            <img src={props.movie.poster}/>
+            <img src={props.movie.poster} alt={"test"}/>
             <p>{props.movie.title} ({props.movie.releaseYear})</p>
         </div>
     )
