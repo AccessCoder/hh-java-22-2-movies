@@ -45,6 +45,9 @@ jobs:
   deploy:
      runs-on: ubuntu-latest
      needs: build-backend
+     environment:
+       name: Insane Movie DB Deployed
+       url: https://insane-movie-db.herokuapp.com/
      env:
        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
      steps:
