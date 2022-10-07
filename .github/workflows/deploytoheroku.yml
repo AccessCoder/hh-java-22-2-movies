@@ -40,7 +40,7 @@ jobs:
        - uses: actions/upload-artifact@v2
          with:
            name: backend-build
-           path: backend/target/etstssts.jar
+           path: backend/target/moviedb.jar
 
   deploy:
      runs-on: ubuntu-latest
