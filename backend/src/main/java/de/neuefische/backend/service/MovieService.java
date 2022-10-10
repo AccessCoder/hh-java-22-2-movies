@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class MovieService {
@@ -28,5 +29,12 @@ public class MovieService {
         movie.setId(idService.generateId());
 
         return repo.save(movie);
+    }
+
+    public Movie getMovie(String id) {
+        // Versuche ein Movie aus der DB auszulesen
+        // Falls für die ID kein Movie gefunden wurde, werfe Exception
+        return repo.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Not a single movie found with id:" + id));
     }
 }
