@@ -25,6 +25,11 @@ public class MovieService {
     }
 
     public Movie addMovie(Movie movie) {
+        if(movie.getTitle() == null || movie.getTitle().isEmpty()){
+            throw new IllegalArgumentException("Given movie is missing mandatory title");
+        }
+
+
         // Generate and set id for new movie
         movie.setId(idService.generateId());
 

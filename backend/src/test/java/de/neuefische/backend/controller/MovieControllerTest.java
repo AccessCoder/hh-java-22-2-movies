@@ -50,6 +50,18 @@ class MovieControllerTest {
 
     @DirtiesContext
     @Test
+    void getMovie_whenMovieNotExists_returns404() throws Exception {
+        //GIVEN
+
+        //WHEN &THEN
+        mockMvc.perform(
+                get("/api/movie/12345"))
+                .andExpect(status().is(404));
+    }
+
+
+    @DirtiesContext
+    @Test
     void addMovie() throws Exception {
         //GIVEN
         when(idService.generateId()).thenReturn("123");
@@ -63,6 +75,21 @@ class MovieControllerTest {
                 .andExpect(status().is(200))
                 .andExpect(content().string("""
                         {"id":"123","title":"Matrix","releaseYear":"1999","poster":"www.post.com/image1.jpeg"}"""));
+    }
+
+    @DirtiesContext
+    @Test
+    void addMovie_whenMissingName_returns400() throws Exception {
+        //GIVEN
+        when(idService.generateId()).thenReturn("123");
+
+        //WHEN & THEN
+        mockMvc.perform(
+                        post("/api/movie")
+                                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                                .content("""
+                                    {"releaseYear":"1999","poster":"www.post.com/image1.jpeg"}"""))
+                .andExpect(status().is(400));
     }
 
 }
