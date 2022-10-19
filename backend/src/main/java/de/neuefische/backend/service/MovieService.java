@@ -42,4 +42,8 @@ public class MovieService {
         return repo.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Not a single movie found with id:" + id));
     }
+
+    public void deleteMovie(String id) {
+        repo.deleteById(id);
+    }
 }

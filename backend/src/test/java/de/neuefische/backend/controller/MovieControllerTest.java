@@ -92,4 +92,17 @@ class MovieControllerTest {
                 .andExpect(status().is(400));
     }
 
+    @DirtiesContext
+    @Test
+    void deleteMovie() throws Exception {
+        //GIVEN
+        Movie dummyMovie = new Movie("1", "Matrix", "1999", "www.post.com/image1.jpeg");
+        repo.save(dummyMovie);
+
+        //WHEN &THEN
+        mockMvc.perform(delete("/api/movie/1"))
+                .andExpect(status().is(200));
+    }
+
+
 }
