@@ -34,5 +34,5 @@ export default function useMovies(){
             .catch((e) => toast.error(e.message))
     }
 
-    return {movies, getAllMovies, postNewMovie}
+    return {movies, getAllMovies, postNewMovie, deleteMovie}
 }
