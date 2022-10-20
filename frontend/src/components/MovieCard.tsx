@@ -1,5 +1,4 @@
 import {Movie} from "../model/Movie";
-import {useState} from "react";
 import "./MovieCard.css"
 
 type MovieCardProps = {
