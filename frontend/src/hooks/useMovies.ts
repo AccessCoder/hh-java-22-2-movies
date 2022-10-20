@@ -30,6 +30,7 @@ export default function useMovies(){
 
     const deleteMovie = (id:string) => {
         axios.delete("/api/movie/"+id)
+            .then(getAllMovies)
             .catch((e) => toast.error(e.message))
     }
 
