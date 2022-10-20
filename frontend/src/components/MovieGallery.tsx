@@ -8,6 +8,7 @@ type MovieGalleryProps = {
     movies:Movie[]
     getAllMovies:() => void;
     postNewMovie:(newMovie:Movie) => void;
+    deleteMovie:(id:string) => void;
 }
 
 export default function MovieGallery(props:MovieGalleryProps){
@@ -48,7 +49,7 @@ export default function MovieGallery(props:MovieGalleryProps){
                     :
                     props.movies.map((m) =>
                 <div className={"card"}>
-                <MovieCard movie={m}/>
+                <MovieCard movie={m} deleteMovie={props.deleteMovie}/>
                 </div>)}
             </div>
         </>

@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
-    const {movies, getAllMovies, postNewMovie} = useMovies();
+    const {movies, getAllMovies, postNewMovie, deleteMovie} = useMovies();
 
 
     return (
@@ -31,7 +31,7 @@ function App() {
                 <NavBar/>
                 <Routes>
                     <Route path={"/homepage"} element={<Homepage/>}/>
-                    <Route path={"/"} element={<MovieGallery movies={movies} getAllMovies={getAllMovies} postNewMovie={postNewMovie}/>}/>
+                    <Route path={"/"} element={<MovieGallery movies={movies} getAllMovies={getAllMovies} postNewMovie={postNewMovie} deleteMovie={deleteMovie}/>}/>
                 </Routes>
             </HashRouter>
             </header>

@@ -33,4 +33,8 @@ public class MovieController {
         return service.addMovie(movie);
     }
 
+    @DeleteMapping("{id}")
+    public void deleteMovie(@PathVariable String id){
+        service.deleteMovie(id);
+    }
 }
