@@ -33,6 +33,11 @@ public class MovieController {
         return service.addMovie(movie);
     }
 
+    @PutMapping
+    public Movie updateMovie(@RequestBody Movie movie){
+        return service.updateMovie(movie);
+    }
+
     @DeleteMapping("{id}")
     public void deleteMovie(@PathVariable String id){
         service.deleteMovie(id);
