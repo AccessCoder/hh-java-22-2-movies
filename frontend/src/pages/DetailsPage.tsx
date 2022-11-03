@@ -42,7 +42,7 @@ export default function DetailsPage(props: MoviesDetailsPageProps) {
             }
 
             {id &&
-                <button onClick={() => onDelete}> Delete</button>
+                <button onClick={() => onDelete(id)}> Delete</button>
             }
 
             <button onClick={() => navigate(`/`)}>Back</button>
