@@ -5,12 +5,13 @@ import MovieGallery from "./components/MovieGallery";
 import {HashRouter, Route, Routes} from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import NavBar from "./components/NavBar";
-import {toast, ToastContainer} from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import DetailsPage from "./pages/DetailsPage";
 
 function App() {
 
-    const {movies, getAllMovies, postNewMovie, deleteMovie} = useMovies();
+    const {movies, getAllMovies, postNewMovie, updateMovie, deleteMovie} = useMovies();
 
 
     return (
@@ -32,6 +33,10 @@ function App() {
                 <Routes>
                     <Route path={"/homepage"} element={<Homepage/>}/>
                     <Route path={"/"} element={<MovieGallery movies={movies} getAllMovies={getAllMovies} postNewMovie={postNewMovie} deleteMovie={deleteMovie}/>}/>
+                    <Route path={'/movie/:id'}
+                           element={<DetailsPage
+                               updateMovie={updateMovie}
+                               deleteMovie={deleteMovie}/>}/>
                 </Routes>
             </HashRouter>
             </header>

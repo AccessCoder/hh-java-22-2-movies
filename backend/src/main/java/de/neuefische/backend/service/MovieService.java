@@ -46,4 +46,8 @@ public class MovieService {
     public void deleteMovie(String id) {
         repo.deleteById(id);
     }
+
+    public Movie updateMovie(Movie movie) {
+        return repo.save(movie);
+    }
 }

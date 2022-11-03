@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Movie} from "../model/Movie";
-import {ToastContainer, toast} from "react-toastify";
+import {toast} from "react-toastify";
 
 export default function useMovies(){
 
@@ -10,8 +10,6 @@ export default function useMovies(){
     useEffect(()=>{
         getAllMovies()
     }, [])
-
-
 
     const getAllMovies = () => {
         axios.get("/api/movie")
@@ -28,11 +26,19 @@ export default function useMovies(){
             .then(getAllMovies)
     }
 
+    const updateMovie = (movie:Movie) => {
+        axios.put("/api/movie", movie)
+            .then(() => toast.success("Movie updated to database"))
+            .catch((error) => toast.error(error.message))
+            .then(getAllMovies)
+    }
+
     const deleteMovie = (id:string) => {
         axios.delete("/api/movie/"+id)
             .then(getAllMovies)
+            .then(() => toast.success("Movie deleted"))
             .catch((e) => toast.error(e.message))
     }
 
-    return {movies, getAllMovies, postNewMovie, deleteMovie}
+    return {movies, getAllMovies, postNewMovie, updateMovie, deleteMovie}
 }
