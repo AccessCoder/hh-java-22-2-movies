@@ -48,7 +48,7 @@ export default function MovieGallery(props:MovieGalleryProps){
     return(
         <>
             {isAdmin() &&
-                <p>Super secret text for Admins only!!</p>
+                <p>🦸 Super secret text for Admins only!! 🦸</p>
             }
             <form onSubmit={(e) => onCreate(e)}>
                 <input name={"title"} placeholder={"title"} onChange={event => setName(event.target.value)}/>
@@ -58,13 +58,13 @@ export default function MovieGallery(props:MovieGalleryProps){
             </form>
 
             <div className={"cards"}>
-                {props.movies.length <1 ?
+                {props.movies.length < 1 ?
                     <h1> Keine Filme Vorhanden </h1>
                     :
                     props.movies.map((m) =>
-                <div className={"card"}>
-                <MovieCard key={m.id} movie={m} deleteMovie={props.deleteMovie}/>
-                </div>)}
+                        <div key={m.id} className={"card"}>
+                            <MovieCard movie={m} deleteMovie={props.deleteMovie}/>
+                        </div>)}
             </div>
         </>
     )
