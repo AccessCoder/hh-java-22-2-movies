@@ -22,15 +22,15 @@ export default function useMovies(){
     const postNewMovie = (movie:Movie) => {
         axios.post("/api/movie", movie)
             .then(() => toast.success("Movie added to database"))
-            .catch((error) => toast.error(error.message))
             .then(getAllMovies)
+            .catch((error) => toast.error(error.message))
     }
 
     const updateMovie = (movie:Movie) => {
         axios.put("/api/movie", movie)
+            .then(getAllMovies)
             .then(() => toast.success("Movie updated to database"))
             .catch((error) => toast.error(error.message))
-            .then(getAllMovies)
     }
 
     const deleteMovie = (id:string) => {

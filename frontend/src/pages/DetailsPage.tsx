@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import "./DetailsPage.css";
 import {Movie} from "../model/Movie";
 import EditMovieDetails from "../components/EditMovieDetails";
@@ -37,12 +37,12 @@ export default function DetailsPage(props: MoviesDetailsPageProps) {
         <div className={"movie-details"}>
             <h2>Edit Movie</h2>
 
-            {detailedMovie &&
+            {detailedMovie ?
                 <EditMovieDetails movie={detailedMovie} updateMovie={onUpdateMovie}/>
-            }
+            : <p>Error! Movie could not be found! <Link to="/">Back</Link></p> }
 
             {id &&
-                <button onClick={() => onDelete}> Delete</button>
+                <button onClick={() => onDelete(id)}> Delete</button>
             }
 
             <button onClick={() => navigate(`/`)}>Back</button>

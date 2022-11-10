@@ -22,7 +22,7 @@ export default function MovieCard(props:MovieCardProps){
         <div className={"movie-card"}>
             <button onClick={deleteHandler}>Delete</button>
             <button onClick={() => navigate(`/movie/${props.movie.id}`)}>Detail</button>
-            <img src={props.movie.poster} alt={"test"}/>
+            <img src={props.movie.poster} alt={"poster"}/>
             <p>{props.movie.title} ({props.movie.releaseYear})</p>
         </div>
     )

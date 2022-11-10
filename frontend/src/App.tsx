@@ -8,11 +8,13 @@ import NavBar from "./components/NavBar";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import DetailsPage from "./pages/DetailsPage";
+import LoginPage from "./pages/LoginPage";
+import useLogin from "./hooks/useLogin";
 
 function App() {
 
-    const {movies, getAllMovies, postNewMovie, updateMovie, deleteMovie} = useMovies();
-
+    const {me, handleRegister, handleLogin, handleLogout} = useLogin()
+    const {movies, getAllMovies, postNewMovie, updateMovie, deleteMovie} = useMovies()
 
     return (
         <div className="App">
@@ -30,13 +32,31 @@ function App() {
             <HashRouter>
                 <h1> Movie Gallery</h1>
                 <NavBar/>
+                { me &&
+                    <>
+                        <p>Hallo {me.username}</p>
+                        <button onClick={() => handleLogout()} >Logout</button>
+                    </>
+                }
+
                 <Routes>
-                    <Route path={"/homepage"} element={<Homepage/>}/>
-                    <Route path={"/"} element={<MovieGallery movies={movies} getAllMovies={getAllMovies} postNewMovie={postNewMovie} deleteMovie={deleteMovie}/>}/>
-                    <Route path={'/movie/:id'}
-                           element={<DetailsPage
-                               updateMovie={updateMovie}
-                               deleteMovie={deleteMovie}/>}/>
+
+                    {!me ?
+                        <Route path={"/"} element={<LoginPage handleRegister={handleRegister}
+                                                              handleLogin={handleLogin}/>}/>
+                    :
+                        <>
+                        <Route path={"/homepage"} element={<Homepage/>}/>
+                        <Route path={"/"} element={<MovieGallery movies={movies} getAllMovies={getAllMovies}
+                                                                 postNewMovie={postNewMovie}
+                                                                 deleteMovie={deleteMovie} me={me}/>}/>
+                        <Route path={'/movie/:id'}
+                                element={<DetailsPage
+                                updateMovie={updateMovie}
+                                deleteMovie={deleteMovie}/>}/>
+                        </>
+                    }
+
                 </Routes>
             </HashRouter>
             </header>
