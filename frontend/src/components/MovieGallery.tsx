@@ -3,6 +3,7 @@ import MovieCard from "./MovieCard";
 import {FormEvent, useState} from "react";
 import "./MovieGallery.css"
 import {toast} from "react-toastify";
+import {UserInfo} from "../model/UserInfo";
 
 
 type MovieGalleryProps = {
@@ -10,10 +11,18 @@ type MovieGalleryProps = {
     getAllMovies:() => void;
     postNewMovie:(newMovie:Movie) => void;
     deleteMovie:(id:string) => void;
-    me: string;
+    me: UserInfo;
 }
 
 export default function MovieGallery(props:MovieGalleryProps){
+
+    function isAdmin() {
+        if (props.me && props.me.roles.find(role => role === "ADMIN")) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     const [name, setName] = useState("");
     const [year, setYear] = useState("");
@@ -38,6 +47,9 @@ export default function MovieGallery(props:MovieGalleryProps){
 
     return(
         <>
+            {isAdmin() &&
+                <p>Super secret text for Admins only!!</p>
+            }
             <form onSubmit={(e) => onCreate(e)}>
                 <input name={"title"} placeholder={"title"} onChange={event => setName(event.target.value)}/>
                 <input name={"year"} placeholder={"year"} onChange={event => setYear(event.target.value)}/>
@@ -51,7 +63,7 @@ export default function MovieGallery(props:MovieGalleryProps){
                     :
                     props.movies.map((m) =>
                 <div className={"card"}>
-                <MovieCard movie={m} deleteMovie={props.deleteMovie}/>
+                <MovieCard key={m.id} movie={m} deleteMovie={props.deleteMovie}/>
                 </div>)}
             </div>
         </>

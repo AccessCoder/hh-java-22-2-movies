@@ -1,11 +1,12 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useState} from "react";
+import {UserInfo} from "../model/UserInfo";
 
 
 export default function useLogin() {
 
-    const [me, setMe] = useState<string | undefined>("")
+    const [me, setMe] = useState<UserInfo | undefined>()
 
     function handleLogin(username: string, password: string) {
         // log in (get session) with username and password

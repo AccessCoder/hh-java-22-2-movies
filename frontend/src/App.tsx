@@ -14,7 +14,7 @@ import useLogin from "./hooks/useLogin";
 function App() {
 
     const {me, handleRegister, handleLogin, handleLogout} = useLogin()
-    const {movies, getAllMovies, postNewMovie, updateMovie, deleteMovie} = useMovies();
+    const {movies, getAllMovies, postNewMovie, updateMovie, deleteMovie} = useMovies()
 
     return (
         <div className="App">
@@ -33,7 +33,10 @@ function App() {
                 <h1> Movie Gallery</h1>
                 <NavBar/>
                 { me &&
-                    <p>Hallo {me} <button onClick={() => handleLogout()} >Logout</button></p>
+                    <>
+                        <p>Hallo {me.username}</p>
+                        <button onClick={() => handleLogout()} >Logout</button>
+                    </>
                 }
 
                 <Routes>

@@ -1,6 +1,7 @@
 package de.neuefische.backend.security.controller;
 
 import de.neuefische.backend.security.model.CreateUserDto;
+import de.neuefische.backend.security.model.UserInfoDto;
 import de.neuefische.backend.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,13 +21,12 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public UserInfoDto login(){
 
         // Ask Security Context for User information
-        return SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        return userService.getUserInfoDtoByUsername(username);
     }
 
     @GetMapping("/logout")
