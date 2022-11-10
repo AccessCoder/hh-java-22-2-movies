@@ -2,6 +2,7 @@ import {Movie} from "../model/Movie";
 import MovieCard from "./MovieCard";
 import {FormEvent, useState} from "react";
 import "./MovieGallery.css"
+import {toast} from "react-toastify";
 
 
 type MovieGalleryProps = {
@@ -9,6 +10,7 @@ type MovieGalleryProps = {
     getAllMovies:() => void;
     postNewMovie:(newMovie:Movie) => void;
     deleteMovie:(id:string) => void;
+    me: string;
 }
 
 export default function MovieGallery(props:MovieGalleryProps){
@@ -21,7 +23,7 @@ export default function MovieGallery(props:MovieGalleryProps){
 
         e.preventDefault()
         if (!name || !year || !poster) {
-            alert(`Please fill movie title, year and posterUrl`)
+            toast.error(`Please fill movie title, year and posterUrl`)
             return
         }
 

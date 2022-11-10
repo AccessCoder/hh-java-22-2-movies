@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -34,6 +35,7 @@ class MovieControllerTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser(username = "user1", password = "pwd")
     void getAllMovies() throws Exception {
         //GIVEN
         Movie dummyMovie = new Movie("1", "Matrix", "1999", "www.post.com/image1.jpeg");
@@ -50,6 +52,7 @@ class MovieControllerTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser(username = "user1", password = "pwd")
     void getMovie_whenMovieNotExists_returns404() throws Exception {
         //GIVEN
 
@@ -62,6 +65,21 @@ class MovieControllerTest {
 
     @DirtiesContext
     @Test
+    void addMovie_whenNotLoggedIn_returns401() throws Exception {
+        //GIVEN
+
+        //WHEN & THEN
+        mockMvc.perform(
+                        post("/api/movie")
+                                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                                .content("""
+                                    {"title":"Matrix","releaseYear":"1999","poster":"www.post.com/image1.jpeg"}"""))
+                .andExpect(status().is(401));
+    }
+
+    @DirtiesContext
+    @Test
+    @WithMockUser(username = "user1", password = "pwd", authorities = {"ADMIN"})
     void addMovie() throws Exception {
         //GIVEN
         when(idService.generateId()).thenReturn("123");
@@ -79,6 +97,7 @@ class MovieControllerTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser(username = "user1", password = "pwd", authorities = {"ADMIN"})
     void addMovie_whenMissingName_returns400() throws Exception {
         //GIVEN
         when(idService.generateId()).thenReturn("123");
@@ -94,7 +113,19 @@ class MovieControllerTest {
 
     @DirtiesContext
     @Test
-    void deleteMovie() throws Exception {
+    void deleteMovie_whenNotLoggedIn_returns401() throws Exception {
+        //GIVEN
+
+        //WHEN &THEN
+        mockMvc.perform(delete("/api/movie/1"))
+                .andExpect(status().is(401));
+    }
+
+
+    @DirtiesContext
+    @Test
+    @WithMockUser(username = "user1", password = "pwd", authorities = {"ADMIN"})
+    void deleteMovie_whenLoggedIn_returns200() throws Exception {
         //GIVEN
         Movie dummyMovie = new Movie("1", "Matrix", "1999", "www.post.com/image1.jpeg");
         repo.save(dummyMovie);
@@ -103,6 +134,8 @@ class MovieControllerTest {
         mockMvc.perform(delete("/api/movie/1"))
                 .andExpect(status().is(200));
     }
+
+
 
 
 }
